@@ -31,5 +31,6 @@ const emit = defineEmits(["update:firstName", "update:lastName"]);
   padding: 20px;
   border: 1px dashed #ccc;
   border-radius: 8px;
+  background-color: aqua;
 }
 </style>

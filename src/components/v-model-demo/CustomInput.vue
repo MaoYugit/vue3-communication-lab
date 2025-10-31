@@ -29,11 +29,15 @@ const emit = defineEmits(["update:modelValue"]);
   display: flex;
   flex-direction: column;
   gap: 5px;
+  background-color: antiquewhite;
+  padding: 10px;
+  border-radius: 10px;
 }
 input {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  background-color: antiquewhite;
 }
 </style>

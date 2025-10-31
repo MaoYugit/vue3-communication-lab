@@ -3,9 +3,9 @@
     <template #introduction>
       <MarkdownRenderer :source="introductionContent" />
     </template>
+
     <template #demo>
       <h2>Live Demo</h2>
-
       <!-- 默认 v-model 示例 -->
       <div class="demo-block">
         <h3>默认 v-model</h3>
@@ -15,7 +15,6 @@
         </p>
         <CustomInput v-model="searchText" />
       </div>
-
       <!-- 多个 v-model 示例 -->
       <div class="demo-block">
         <h3>多个 v-model</h3>
@@ -29,6 +28,7 @@
         />
       </div>
     </template>
+
     <template #code>
       <h2>核心代码</h2>
       <div class="code-blocks">
