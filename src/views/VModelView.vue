@@ -1,27 +1,9 @@
 <template>
-  <div class="v-model-view">
-    <!-- 1. 介绍区 -->
-    <section class="intro-section">
-      <h1>2. v-model</h1>
-      <p>
-        <code>v-model</code> 是 <code>props</code> 和
-        <code>emit</code> 的一个语法糖，用于轻松实现父子组件之间的双向数据绑定。
-      </p>
-      <ul>
-        <li>
-          <strong>默认 v-model:</strong> 相当于传递 <code>modelValue</code> prop
-          并监听 <code>update:modelValue</code> 事件。
-        </li>
-        <li>
-          <strong>多个 v-model (Vue 3):</strong> 可以通过参数实现，例如
-          <code>v-model:title</code> 相当于传递 <code>title</code> prop 并监听
-          <code>update:title</code> 事件。
-        </li>
-      </ul>
-    </section>
-
-    <!-- 2. 演示区 -->
-    <section class="demo-section">
+  <ComponentDemoLayout>
+    <template #introduction>
+      <MarkdownRenderer :source="introductionContent" />
+    </template>
+    <template #demo>
       <h2>Live Demo</h2>
 
       <!-- 默认 v-model 示例 -->
@@ -46,10 +28,8 @@
           v-model:lastName="user.lastName"
         />
       </div>
-    </section>
-
-    <!-- 3. 代码区 -->
-    <section class="code-section">
+    </template>
+    <template #code>
       <h2>核心代码</h2>
       <div class="code-blocks">
         <div class="code-block">
@@ -61,23 +41,24 @@
           <pre><code>{{ childCode }}</code></pre>
         </div>
       </div>
-    </section>
-  </div>
+    </template>
+  </ComponentDemoLayout>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import CustomInput from "@/components/v-model-demo/CustomInput.vue";
 import UserInfoEditor from "@/components/v-model-demo/UserInfoEditor.vue";
+import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
+import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
+import introductionContent from "@/markdown/02-v-model.md?raw";
 
-// --- Demo Logic ---
 const searchText = ref("Hello v-model");
 const user = reactive({
   firstName: "John",
   lastName: "Doe",
 });
 
-// --- Code Snippets for Display ---
 const parentCode = `
 // --- 父组件 ---
 import { ref } from 'vue';
