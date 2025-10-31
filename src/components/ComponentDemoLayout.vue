@@ -59,7 +59,7 @@ const activeTab = ref("introduction");
   text-decoration: none;
   color: #555;
   font-weight: 500;
-  border-bottom: 2px solid transparent; /* 默认状态下，底部边框是透明的 */
+  border-bottom: 2px solid transparent;
   transition: color 0.3s, border-color 0.3s;
 }
 

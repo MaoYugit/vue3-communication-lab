@@ -1,15 +1,13 @@
 <template>
   <!-- 1. v-html 指令用于渲染原始 HTML -->
-  <!-- 渲染出的 HTML 会被注入到这个 div 中 -->
   <div class="markdown-body" v-html="renderedMarkdown"></div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import MarkdownIt from "markdown-it"; // 引入刚刚安装的库
+import MarkdownIt from "markdown-it";
 
 // 2. 定义 props
-// 这个组件会接收一个名为 'source' 的字符串属性，内容就是 Markdown 文本
 const props = defineProps({
   source: {
     type: String,
