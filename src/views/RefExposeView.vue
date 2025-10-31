@@ -1,74 +1,58 @@
 <!-- src/views/RefExposeView.vue -->
 <template>
-  <div class="ref-expose-view">
-    <!-- 1. 介绍区 -->
-    <section class="intro-section">
-      <h1>4. ref & defineExpose</h1>
-      <p>
-        这是一种命令式的通信方式，允许父组件获取子组件的引用，并直接调用子组件通过
-        <code>defineExpose</code> 暴露的方法或访问其属性。
-      </p>
-      <ul>
-        <li>
-          <strong>父组件:</strong> 使用
-          <code>ref</code> 模板引用来获取子组件实例。
-        </li>
-        <li>
-          <strong>子组件:</strong> 在
-          <code>&lt;script setup&gt;</code> 中，必须使用
-          <code>defineExpose</code> 来明确指定哪些属性和方法是公开的。
-        </li>
-        <li>
-          <strong>注意:</strong>
-          这种方式应谨慎使用，因为它会增加组件间的耦合度。优先考虑 props/emit。
-        </li>
-      </ul>
-    </section>
+  <ComponentDemoLayout>
+    <template #introduction>
+      <MarkdownRenderer :source="introductionContent" />
+    </template>
+    <template #demo>
+      <!-- 2. 演示区 -->
+      <section class="demo-section">
+        <h2>Live Demo</h2>
+        <div class="parent-component">
+          <h3>父组件</h3>
+          <p>
+            校验结果:
+            <span class="result" :class="resultClass">{{
+              validationResult
+            }}</span>
+          </p>
+          <button @click="handleValidate">
+            点击这里，调用子组件的 validate 方法
+          </button>
 
-    <!-- 2. 演示区 -->
-    <section class="demo-section">
-      <h2>Live Demo</h2>
-      <div class="parent-component">
-        <h3>父组件</h3>
-        <p>
-          校验结果:
-          <span class="result" :class="resultClass">{{
-            validationResult
-          }}</span>
-        </p>
-        <button @click="handleValidate">
-          点击这里，调用子组件的 validate 方法
-        </button>
-
-        <!-- 
+          <!-- 
           1. 创建一个 ref: const formRef = ref(null)
           2. 将 ref 绑定到子组件上: ref="formRef"
         -->
-        <MyForm ref="formRef" />
-      </div>
-    </section>
-
-    <!-- 3. 代码区 -->
-    <section class="code-section">
-      <h2>核心代码</h2>
-      <div class="code-blocks">
-        <div class="code-block">
-          <h4>父组件 (RefExposeView.vue)</h4>
-          <pre><code>{{ parentCode }}</code></pre>
+          <MyForm ref="formRef" />
         </div>
-        <div class="code-block">
-          <h4>子组件 (MyForm.vue)</h4>
-          <pre><code>{{ childCode }}</code></pre>
+      </section>
+    </template>
+    <template #code>
+      <!-- 3. 代码区 -->
+      <section class="code-section">
+        <h2>核心代码</h2>
+        <div class="code-blocks">
+          <div class="code-block">
+            <h4>父组件 (RefExposeView.vue)</h4>
+            <pre><code>{{ parentCode }}</code></pre>
+          </div>
+          <div class="code-block">
+            <h4>子组件 (MyForm.vue)</h4>
+            <pre><code>{{ childCode }}</code></pre>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </template>
+  </ComponentDemoLayout>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import MyForm from "@/components/ref-expose-demo/MyForm.vue";
-
+import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
+import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
+import introductionContent from "@/markdown/04-ref 与 defineExpose.md?raw";
 // --- Demo Logic ---
 // 1. 创建一个 ref 来持有 MyForm 组件的实例
 // InstanceType<typeof MyForm> 是获取组件实例类型的 TypeScript 高级用法

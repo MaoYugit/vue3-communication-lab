@@ -1,51 +1,49 @@
 <!-- src/views/ProvideInjectView.vue -->
 <template>
-  <div class="provide-inject-view">
-    <!-- 1. 介绍区 -->
-    <section class="intro-section">
-      <h1>5. Provide & Inject</h1>
-      <p>
-        <code>provide</code> 和
-        <code>inject</code> 用于解决跨越多层级的组件通信问题（即“属性钻孔” Prop
-        Drilling）。祖先组件作为“提供者”(Provider)，其所有后代组件都可以作为“注入者”(Consumer)来获取这份数据，无论层级多深。
-      </p>
-    </section>
+  <ComponentDemoLayout>
+    <template #introduction>
+      <MarkdownRenderer :source="introductionContent" />
+    </template>
+    <template #demo>
+      <!-- 2. 演示区 -->
+      <section class="demo-section">
+        <h2>Live Demo</h2>
+        <div class="grandparent-component" :class="theme">
+          <h2>祖父组件 (Provider)</h2>
+          <p>
+            当前主题: <span class="value">{{ theme }}</span>
+          </p>
+          <p>我在这一层 provide 数据和方法，请看最深处的孙组件如何响应。</p>
 
-    <!-- 2. 演示区 -->
-    <section class="demo-section">
-      <h2>Live Demo</h2>
-      <div class="grandparent-component" :class="theme">
-        <h2>祖父组件 (Provider)</h2>
-        <p>
-          当前主题: <span class="value">{{ theme }}</span>
-        </p>
-        <p>我在这一层 provide 数据和方法，请看最深处的孙组件如何响应。</p>
-
-        <MiddleComponent />
-      </div>
-    </section>
-
-    <!-- 3. 代码区 -->
-    <section class="code-section">
-      <h2>核心代码</h2>
-      <div class="code-blocks">
-        <div class="code-block">
-          <h4>祖父组件 (ProvideInjectView.vue)</h4>
-          <pre><code>{{ providerCode }}</code></pre>
+          <MiddleComponent />
         </div>
-        <div class="code-block">
-          <h4>孙组件 (DeepChild.vue)</h4>
-          <pre><code>{{ consumerCode }}</code></pre>
+      </section>
+    </template>
+    <template #code>
+      <!-- 3. 代码区 -->
+      <section class="code-section">
+        <h2>核心代码</h2>
+        <div class="code-blocks">
+          <div class="code-block">
+            <h4>祖父组件 (ProvideInjectView.vue)</h4>
+            <pre><code>{{ providerCode }}</code></pre>
+          </div>
+          <div class="code-block">
+            <h4>孙组件 (DeepChild.vue)</h4>
+            <pre><code>{{ consumerCode }}</code></pre>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </template>
+  </ComponentDemoLayout>
 </template>
 
 <script setup lang="ts">
 import { ref, provide, readonly } from "vue";
 import MiddleComponent from "@/components/provide-inject-demo/MiddleComponent.vue";
-
+import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
+import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
+import introductionContent from "@/markdown/05-provide 与 inject.md?raw";
 // --- Demo Logic ---
 // 1. 创建一个响应式的数据 (ref)
 const theme = ref("light");

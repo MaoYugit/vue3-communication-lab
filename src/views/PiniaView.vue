@@ -1,42 +1,36 @@
 <!-- src/views/PiniaView.vue -->
 <template>
-  <div class="pinia-view">
-    <!-- 1. 介绍区 -->
-    <section class="intro-section">
-      <h1>6. Pinia</h1>
-      <p>
-        Pinia 是 Vue
-        官方推荐的状态管理库。它允许你创建集中的、全局共享的“数据仓库”(Store)，让任何组件都能方便地读取和修改状态，非常适合管理如用户信息、购物车等全局数据。
-      </p>
-      <ul>
-        <li><strong>State:</strong> 核心数据源 (响应式)。</li>
-        <li><strong>Getters:</strong> 基于 State 的计算属性 (带缓存)。</li>
-        <li><strong>Actions:</strong> 修改 State 的方法 (可以是异步的)。</li>
-      </ul>
-    </section>
-
-    <!-- 2. 演示区 -->
-    <section class="demo-section">
-      <h2>Live Demo</h2>
-      <p>下面这两个组件没有父子关系，它们通过同一个 Pinia Store 进行通信。</p>
-      <div class="demo-container">
-        <LoginStatus />
-        <LoginControls />
-      </div>
-    </section>
-
-    <!-- 3. 代码区 -->
-    <section class="code-section">
-      <h4>核心代码 (stores/userStore.ts)</h4>
-      <pre><code>{{ storeCode }}</code></pre>
-    </section>
-  </div>
+  <ComponentDemoLayout>
+    <template #introduction>
+      <MarkdownRenderer :source="introductionContent" />
+    </template>
+    <template #demo>
+      <!-- 2. 演示区 -->
+      <section class="demo-section">
+        <h2>Live Demo</h2>
+        <p>下面这两个组件没有父子关系，它们通过同一个 Pinia Store 进行通信。</p>
+        <div class="demo-container">
+          <LoginStatus />
+          <LoginControls />
+        </div>
+      </section>
+    </template>
+    <template #code>
+      <!-- 3. 代码区 -->
+      <section class="code-section">
+        <h4>核心代码 (stores/userStore.ts)</h4>
+        <pre><code>{{ storeCode }}</code></pre>
+      </section>
+    </template>
+  </ComponentDemoLayout>
 </template>
 
 <script setup lang="ts">
 import LoginStatus from "@/components/pinia-demo/LoginStatus.vue";
 import LoginControls from "@/components/pinia-demo/LoginControls.vue";
-
+import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
+import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
+import introductionContent from "@/markdown/06-pinia.md?raw";
 const storeCode = `
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
