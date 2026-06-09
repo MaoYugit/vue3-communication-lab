@@ -9,42 +9,42 @@ const routes = [
   {
     path: "/props-emit",
     name: "Props & Emit",
-    component: () => import("../views/PropsEmitView.vue"),
+    component: () => import("../views/Props/PropsEmitView.vue"),
   },
   {
     path: "/v-model",
     name: "v-model",
-    component: () => import("../views/VModelView.vue"),
+    component: () => import("../views/V-model/VModelView.vue"),
   },
   {
     path: "/attrs",
     name: "$attrs",
-    component: () => import("../views/AttrsView.vue"),
+    component: () => import("../views/Attrs/AttrsView.vue"),
   },
   {
     path: "/ref-expose",
     name: "ref & defineExpose",
-    component: () => import("../views/RefExposeView.vue"),
+    component: () => import("../views/RefExpose/RefExposeView.vue"),
   },
   {
     path: "/provide-inject",
     name: "Provide & Inject",
-    component: () => import("../views/ProvideInjectView.vue"),
+    component: () => import("../views/ProvideInject/ProvideInjectView.vue"),
   },
   {
     path: "/pinia",
     name: "Pinia",
-    component: () => import("../views/PiniaView.vue"),
+    component: () => import("../views/Pinia/PiniaView.vue"),
   },
   {
     path: "/mitt",
     name: "Mitt",
-    component: () => import("../views/MittView.vue"),
+    component: () => import("../views/Mitt/MittView.vue"),
   },
   {
     path: "/slots",
     name: "Slots",
-    component: () => import("../views/SlotsView.vue"),
+    component: () => import("../views/Slot/SlotsView.vue"),
   },
 ];
 
