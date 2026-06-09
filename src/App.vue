@@ -2,7 +2,7 @@
 <template>
   <div class="app-layout">
     <nav class="sidebar">
-      <h2>通信方式</h2>
+      <h2>Vue3 组件通信</h2>
       <ul>
         <li v-for="page in pages" :key="page.path">
           <router-link :to="page.path">{{ page.name }}</router-link>
@@ -35,7 +35,8 @@ const pages = [
 /* 使用 scoped 确保样式只作用于当前组件 */
 .app-layout {
   display: flex;
-  height: 100vh; /* 占满整个视口高度 */
+  height: 100vh;
+  /* 占满整个视口高度 */
   background-color: #f0f2f5;
 }
 
@@ -86,8 +87,10 @@ const pages = [
 }
 
 .content {
-  flex-grow: 1; /* 占据剩余所有空间 */
+  flex-grow: 1;
+  /* 占据剩余所有空间 */
   padding: 30px;
-  overflow-y: auto; /* 如果内容超长，则可以滚动 */
+  overflow-y: auto;
+  /* 如果内容超长，则可以滚动 */
 }
 </style>
