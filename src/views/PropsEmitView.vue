@@ -1,9 +1,11 @@
 <template>
   <ComponentDemoLayout>
+    <!-- 1. 知识点介绍 -->
     <template #introduction>
       <MarkdownRenderer :source="introductionContent" />
     </template>
 
+    <!-- 2. 在线演示 -->
     <template #demo>
       <div class="parent-component">
         <h3>父组件</h3>
@@ -15,13 +17,11 @@
           从子组件收到的消息: <span class="message">{{ childMessage }}</span>
         </p>
 
-        <ChildComponent
-          :message="parentMessage"
-          @message-from-child="handleChildMessage"
-        />
+        <ChildComponent :message="parentMessage" @message-from-child="handleChildMessage" />
       </div>
     </template>
 
+    <!-- 3. 核心代码 -->
     <template #code>
       <div class="code-blocks">
         <div class="code-block">
@@ -93,9 +93,11 @@ function sendMessage() {
 .input-area {
   margin-bottom: 15px;
 }
+
 .input-area label {
   margin-right: 10px;
 }
+
 .input-area input {
   padding: 8px;
   border: 1px solid #ccc;
@@ -111,9 +113,11 @@ function sendMessage() {
   display: flex;
   gap: 20px;
 }
+
 .code-block {
   flex: 1;
 }
+
 pre {
   background-color: #2d2d2d;
   color: #f0f0f0;
