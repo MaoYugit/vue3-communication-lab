@@ -26,6 +26,7 @@ const notification = ref<NotificationPayload | null>(null);
 // 1. 定义一个处理函数
 function handleNotification(payload: NotificationPayload) {
   notification.value = payload;
+  clearTimeout(timer);
   // 3秒后自动清除通知
   timer = setTimeout(() => {
     notification.value = null;
