@@ -7,17 +7,18 @@
     <template #demo>
       <div class="parent-component">
         <h3>父组件</h3>
-        <p>
-          从子组件收到的消息: <span class="message">{{ childMessage }}</span>
-        </p>
-        <ChildComponent @message-from-child="handleChildMessage" />
+        <div class="input-area">
+          <label>在父组件中修改消息:</label>
+          <input v-model="parentMessage" />
+        </div>
+        <ChildComponent :message="parentMessage" />
       </div>
     </template>
 
     <template #code>
       <div class="code-blocks">
         <div class="code-block">
-          <h4>父组件 (EmitView.vue)</h4>
+          <h4>父组件 (PropsView.vue)</h4>
           <pre><code>{{ parentCode }}</code></pre>
         </div>
         <div class="code-block">
@@ -32,17 +33,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
-import ChildComponent from "@/components/02-emit-demo/ChildComponent.vue";
+import ChildComponent from "@/components/01-props-demo/ChildComponent.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
-import introductionContent from "@/markdown/02-emit.md?raw";
-import parentCode from "@/views/Emit/EmitView.vue?raw";
-import childCode from "@/components/02-emit-demo/ChildComponent.vue?raw";
+import introductionContent from "@/markdown/01-props.md?raw";
+import parentCode from "@/views/01-Props/PropsView.vue?raw";
+import childCode from "@/components/01-props-demo/ChildComponent.vue?raw";
 
-const childMessage = ref("暂未收到子组件消息");
-
-function handleChildMessage(payload: string) {
-  childMessage.value = payload || "子组件发送了空消息";
-}
+const parentMessage = ref("来自父组件的初始消息");
 </script>
 
 <style scoped>
@@ -53,9 +50,18 @@ function handleChildMessage(payload: string) {
   background-color: #f9f9f9;
 }
 
-.message {
-  color: #d9534f;
-  font-weight: bold;
+.input-area {
+  margin-bottom: 15px;
+}
+
+.input-area label {
+  margin-right: 10px;
+}
+
+.input-area input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .code-blocks {

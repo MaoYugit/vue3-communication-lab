@@ -52,7 +52,7 @@ import UserInfoEditor from "@/components/03-v-model-demo/UserInfoEditor.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/02-v-model.md?raw";
-import parentCode from "@/views/V-model/VModelView.vue?raw";
+import parentCode from "@/views/03-V-model/VModelView.vue?raw";
 import childCode from "@/components/03-v-model-demo/CustomInput.vue?raw";
 
 const searchText = ref("Hello v-model");

@@ -44,7 +44,7 @@ import MiddleComponent from "@/components/06-provide-inject-demo/MiddleComponent
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/05-provide 与 inject.md?raw";
-import providerCode from "@/views/ProvideInject/ProvideInjectView.vue?raw";
+import providerCode from "@/views/06-ProvideInject/ProvideInjectView.vue?raw";
 import consumerCode from "@/components/06-provide-inject-demo/DeepChild.vue?raw";
 import { themeContextKey } from "@/components/06-provide-inject-demo/themeContext";
 // --- Demo Logic ---

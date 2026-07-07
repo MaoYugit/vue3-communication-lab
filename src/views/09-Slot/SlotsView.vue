@@ -57,7 +57,7 @@ import TodoList from "@/components/09-slots-demo/TodoList.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/08-slot.md?raw";
-import parentCode from "@/views/Slot/SlotsView.vue?raw";
+import parentCode from "@/views/09-Slot/SlotsView.vue?raw";
 </script>
 
 <style scoped>

@@ -53,7 +53,7 @@ import MyForm from "@/components/05-ref-expose-demo/MyForm.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/04-ref 与 defineExpose.md?raw";
-import parentCode from "@/views/RefExpose/RefExposeView.vue?raw";
+import parentCode from "@/views/05-RefExpose/RefExposeView.vue?raw";
 import childCode from "@/components/05-ref-expose-demo/MyForm.vue?raw";
 // --- Demo Logic ---
 // 1. 创建一个 ref 来持有 MyForm 组件的实例
