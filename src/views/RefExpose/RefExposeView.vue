@@ -49,10 +49,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import MyForm from "@/components/ref-expose-demo/MyForm.vue";
+import MyForm from "@/components/05-ref-expose-demo/MyForm.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/04-ref 与 defineExpose.md?raw";
+import parentCode from "@/views/RefExpose/RefExposeView.vue?raw";
+import childCode from "@/components/05-ref-expose-demo/MyForm.vue?raw";
 // --- Demo Logic ---
 // 1. 创建一个 ref 来持有 MyForm 组件的实例
 // InstanceType<typeof MyForm> 是获取组件实例类型的 TypeScript 高级用法
@@ -75,48 +77,9 @@ function handleValidate() {
     validationResult.value = "获取子组件实例失败";
   }
 }
-
-// --- Code Snippets for Display ---
-const parentCode = `
-// --- 父组件 ---
-import { ref } from 'vue';
-import MyForm from './MyForm.vue';
-
-// 1. 创建 ref
-const formRef = ref(null);
-
-function handleValidate() {
-  // 3. 通过 .value 调用子组件方法
-  if (formRef.value) {
-    formRef.value.validate();
-  }
-}
-
-// 2. 绑定 ref
-<MyForm ref="formRef" />
-<button @click="handleValidate">校验</button>
-`;
-
-const childCode = `
-// --- 子组件 (MyForm.vue) ---
-import { ref } from 'vue';
-
-function runValidationLogic() {
-  // ... 内部校验逻辑 ...
-  return true; // or false
-}
-
-// 关键点: 暴露公共 API
-defineExpose({
-  validate: runValidationLogic
-});
-`;
 </script>
 
 <style scoped>
-.ref-expose-view {
-  max-width: 900px;
-}
 section {
   margin-bottom: 30px;
   padding: 20px;

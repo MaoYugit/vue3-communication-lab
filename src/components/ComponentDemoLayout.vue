@@ -1,19 +1,31 @@
 <template>
   <div class="component-demo-layout">
     <!-- 1. Tab 导航栏 -->
-    <nav class="tab-nav">
-      <a
+    <nav class="tab-nav" role="tablist">
+      <button
         :class="{ active: activeTab === 'introduction' }"
         @click="activeTab = 'introduction'"
+        role="tab"
+        :aria-selected="activeTab === 'introduction'"
       >
         知识点介绍
-      </a>
-      <a :class="{ active: activeTab === 'demo' }" @click="activeTab = 'demo'">
+      </button>
+      <button
+        :class="{ active: activeTab === 'demo' }"
+        @click="activeTab = 'demo'"
+        role="tab"
+        :aria-selected="activeTab === 'demo'"
+      >
         在线演示
-      </a>
-      <a :class="{ active: activeTab === 'code' }" @click="activeTab = 'code'">
+      </button>
+      <button
+        :class="{ active: activeTab === 'code' }"
+        @click="activeTab = 'code'"
+        role="tab"
+        :aria-selected="activeTab === 'code'"
+      >
         核心代码
-      </a>
+      </button>
     </nav>
 
     <!-- 2. 内容展示区 -->
@@ -53,23 +65,25 @@ const activeTab = ref("introduction");
   margin-bottom: 25px;
 }
 
-.tab-nav a {
+.tab-nav button {
   padding: 12px 20px;
   cursor: pointer;
-  text-decoration: none;
   color: #555;
   font-weight: 500;
+  border: none;
+  background: none;
+  font-size: inherit;
   border-bottom: 2px solid transparent;
   transition: color 0.3s, border-color 0.3s;
 }
 
-.tab-nav a:hover {
+.tab-nav button:hover {
   color: #1890ff;
 }
 
-.tab-nav a.active {
+.tab-nav button.active {
   color: #1890ff;
-  border-bottom-color: #1890ff; /* 底部边框变成蓝色，形成下划线效果 */
+  border-bottom-color: #1890ff;
 }
 
 /* 内容区域的通用样式，提供一个白色卡片效果 */

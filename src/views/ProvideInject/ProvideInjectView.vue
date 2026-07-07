@@ -40,10 +40,13 @@
 
 <script setup lang="ts">
 import { ref, provide, readonly } from "vue";
-import MiddleComponent from "@/components/provide-inject-demo/MiddleComponent.vue";
+import MiddleComponent from "@/components/06-provide-inject-demo/MiddleComponent.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/05-provide 与 inject.md?raw";
+import providerCode from "@/views/ProvideInject/ProvideInjectView.vue?raw";
+import consumerCode from "@/components/06-provide-inject-demo/DeepChild.vue?raw";
+import { themeContextKey } from "@/components/06-provide-inject-demo/themeContext";
 // --- Demo Logic ---
 // 1. 创建一个响应式的数据 (ref)
 const theme = ref("light");
@@ -55,53 +58,13 @@ function toggleTheme() {
 
 // 3. 使用 provide 将数据和方法提供给所有后代组件
 // 使用 Symbol 作为 key 是一个好习惯，但在简单示例中用字符串也可以
-provide("themeContext", {
+provide(themeContextKey, {
   theme: readonly(theme), // 使用 readonly 包装，防止子组件直接修改
   toggleTheme,
 });
-
-// --- Code Snippets for Display ---
-const providerCode = `
-// 祖父组件中
-import { ref, provide, readonly } from 'vue';
-
-const theme = ref('light');
-
-function toggleTheme() {
-  theme.value = theme.value === 'light' 
-    ? 'dark' 
-    : 'light';
-}
-
-provide('themeContext', {
-  theme: readonly(theme),
-  toggleTheme
-});
-`;
-
-const consumerCode = `
-// 孙组件中
-import { inject } from 'vue';
-
-// 注入 'themeContext'，并提供默认值
-const { theme, toggleTheme } = 
-  inject('themeContext', {
-    theme: ref('default'),
-    toggleTheme: () => {}
-  });
-
-// 在模板中使用
-<p>主题: {{ theme }}</p>
-<button @click="toggleTheme">
-  切换主题
-</button>
-`;
 </script>
 
 <style scoped>
-.provide-inject-view {
-  max-width: 900px;
-}
 section {
   margin-bottom: 30px;
   padding: 20px;

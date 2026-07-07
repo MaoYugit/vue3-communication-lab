@@ -28,50 +28,21 @@
 </template>
 
 <script setup lang="ts">
-import MittEmitter from "@/components/mitt-demo/MittEmitter.vue";
-import MittReceiver from "@/components/mitt-demo/MittReceiver.vue";
+import MittEmitter from "@/components/08-mitt-demo/MittEmitter.vue";
+import MittReceiver from "@/components/08-mitt-demo/MittReceiver.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/07-mitt.md?raw";
-const receiverCode = `
-import { onMounted, onUnmounted } from 'vue';
-import emitter from '@/utils/emitter';
-
-// 定义处理函数
-function handleNotification(payload) {
-  // ... 更新组件状态以显示通知 ...
-}
-
-// 组件挂载时，订阅事件
-onMounted(() => {
-  emitter.on('show-notification', handleNotification);
-});
-
-// ‼️ 组件卸载时，必须取消订阅，防止内存泄漏！
-onUnmounted(() => {
-  emitter.off('show-notification', handleNotification);
-});
-`;
+import receiverCode from "@/components/08-mitt-demo/MittReceiver.vue?raw";
 </script>
 
 <style scoped>
-.mitt-view {
-  max-width: 900px;
-}
-
 section {
   margin-bottom: 30px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.warning {
-  padding: 10px;
-  background-color: #fffbe6;
-  border: 1px solid #ffe58f;
-  border-radius: 4px;
 }
 
 .demo-container {

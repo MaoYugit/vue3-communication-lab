@@ -3,23 +3,17 @@
   <div class="markdown-body" v-html="renderedMarkdown"></div>
 </template>
 
-<script setup lang="ts">
-import { computed } from "vue";
+<script lang="ts">
 import MarkdownIt from "markdown-it";
 
-// 2. 定义 props
-const props = defineProps({
-  source: {
-    type: String,
-    required: true,
-  },
-});
-
-// 3. 初始化 markdown-it 实例
 const md = new MarkdownIt();
+</script>
 
-// 4. 使用 computed 计算属性来转换 Markdown
-// 这样做的好处是，只有当 props.source 发生变化时，才会重新执行渲染，性能更佳
+<script setup lang="ts">
+import { computed } from "vue";
+
+const props = defineProps<{ source: string }>();
+
 const renderedMarkdown = computed(() => {
   return md.render(props.source);
 });

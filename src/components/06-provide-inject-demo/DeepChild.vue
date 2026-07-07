@@ -16,20 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from "vue";
-import type { Ref } from "vue";
-
-// 定义期望注入的类型，提供更好的类型安全
-interface ThemeContext {
-  theme: Ref<string>;
-  toggleTheme: () => void;
-}
+import { inject, ref, readonly } from "vue";
+import { themeContextKey } from "./themeContext";
 
 // 注入顶层提供的 'themeContext'
 // 提供一个默认值以防万一，这让组件更健壮
-const { theme, toggleTheme } = inject<ThemeContext>("themeContext", {
-  theme: ref("default"),
-  toggleTheme: () => console.warn("toggleTheme not provided"),
+const { theme, toggleTheme } = inject(themeContextKey, {
+  theme: readonly(ref("default")),
+  toggleTheme: () => {},
 });
 </script>
 

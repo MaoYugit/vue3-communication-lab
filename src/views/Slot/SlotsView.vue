@@ -53,33 +53,14 @@
 </template>
 
 <script setup lang="ts">
-import TodoList from "@/components/slots-demo/TodoList.vue";
+import TodoList from "@/components/09-slots-demo/TodoList.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/08-slot.md?raw";
-const parentCode = `
-<TodoList>
-  <!-- 1. 使用 #header 具名插槽 -->
-  <template #header>
-    <h3>🚀 我的待办事项</h3>
-  </template>
-
-  <!-- 2. 使用 #default 作用域插槽 -->
-  <!--    通过 { todoItem } 接收子组件的数据 -->
-  <template #default="{ todoItem }">
-    <div :class="{ completed: todoItem.completed }">
-      <input type="checkbox" :checked="todoItem.completed" />
-      <span>{{ todoItem.text }}</span>
-    </div>
-  </template>
-</TodoList>
-`;
+import parentCode from "@/views/Slot/SlotsView.vue?raw";
 </script>
 
 <style scoped>
-.slots-view {
-  max-width: 900px;
-}
 section {
   margin-bottom: 30px;
   padding: 20px;
@@ -114,11 +95,11 @@ section {
   font-size: 0.8em;
   color: white;
 }
-.status-badge.pending {
-  background-color: #faad14;
-}
 .status-badge {
   background-color: #52c41a;
+}
+.status-badge.pending {
+  background-color: #faad14;
 }
 
 pre {

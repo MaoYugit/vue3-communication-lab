@@ -13,15 +13,11 @@
 </template>
 
 <script setup lang="ts">
-// 1. 接收 modelValue prop
-// 2. 接收一个可选的 label prop，让组件更通用
-defineProps({
-  modelValue: String,
-  label: String,
-});
+defineProps<{ modelValue?: string; label?: string }>();
 
-// 3. 声明 update:modelValue 事件
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+}>();
 </script>
 
 <style scoped>

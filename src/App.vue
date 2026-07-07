@@ -1,43 +1,81 @@
 <!-- src/App.vue -->
 <template>
   <div class="app-layout">
-    <nav class="sidebar">
+    <div
+      v-if="sidebarOpen && isMobile"
+      class="sidebar-overlay"
+      @click="sidebarOpen = false"
+    ></div>
+
+    <nav class="sidebar" :class="{ open: sidebarOpen }">
       <h2>Vue3 组件通信</h2>
       <ul>
-        <li v-for="page in pages" :key="page.path">
-          <router-link :to="page.path">{{ page.name }}</router-link>
+        <li v-for="(page, index) in pages" :key="page.path">
+          <router-link :to="page.path" @click="isMobile && (sidebarOpen = false)">
+            {{ index + 1 }}. {{ page.name }}
+          </router-link>
         </li>
       </ul>
     </nav>
 
     <main class="content">
-      <router-view />
+      <div class="content-header">
+        <button class="menu-toggle" @click="sidebarOpen = !sidebarOpen">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-// 1. 定义我们的导航链接信息
-const pages = [
-  { path: "/", name: "首页" },
-  { path: "/props-emit", name: "1. Props & Emit" },
-  { path: "/v-model", name: "2. v-model" },
-  { path: "/attrs", name: "3. $attrs" },
-  { path: "/ref-expose", name: "4. ref & defineExpose" },
-  { path: "/provide-inject", name: "5. Provide & Inject" },
-  { path: "/pinia", name: "6. Pinia" },
-  { path: "/mitt", name: "7. Mitt" },
-  { path: "/slots", name: "8. Slots" },
-];
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const pages = router
+  .getRoutes()
+  .filter((r) => r.path !== "/")
+  .map((r) => ({
+    path: r.path,
+    name: (r.meta?.title as string) || r.name,
+  }));
+
+const sidebarOpen = ref(true);
+const isMobile = ref(false);
+
+let mq: MediaQueryList | null = null;
+function checkMobile(e: MediaQueryListEvent | MediaQueryList) {
+  isMobile.value = e.matches;
+  if (e.matches) sidebarOpen.value = false;
+  else sidebarOpen.value = true;
+}
+
+onMounted(() => {
+  mq = window.matchMedia("(max-width: 768px)");
+  mq.addEventListener("change", checkMobile);
+  checkMobile(mq);
+});
+
+onUnmounted(() => {
+  mq?.removeEventListener("change", checkMobile);
+});
 </script>
 
 <style scoped>
-/* 使用 scoped 确保样式只作用于当前组件 */
 .app-layout {
   display: flex;
   height: 100vh;
-  /* 占满整个视口高度 */
   background-color: #f0f2f5;
+}
+
+.sidebar-overlay {
+  display: none;
 }
 
 .sidebar {
@@ -46,6 +84,10 @@ const pages = [
   border-right: 1px solid #e8e8e8;
   padding: 20px;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  max-height: 100vh;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
 }
 
 .sidebar h2 {
@@ -64,7 +106,6 @@ const pages = [
   margin-bottom: 10px;
 }
 
-/* 路由链接样式 */
 .sidebar a {
   text-decoration: none;
   color: #555;
@@ -74,23 +115,89 @@ const pages = [
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* 鼠标悬停时的样式 */
 .sidebar a:hover {
   background-color: #e6f7ff;
 }
 
-/* 当前激活的路由链接样式 */
 .sidebar a.router-link-active {
   background-color: #1890ff;
   color: #fff;
   font-weight: bold;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 .content {
   flex-grow: 1;
-  /* 占据剩余所有空间 */
   padding: 30px;
   overflow-y: auto;
-  /* 如果内容超长，则可以滚动 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: #333;
+    border-radius: 2px;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .content-header {
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

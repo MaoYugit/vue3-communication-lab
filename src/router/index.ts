@@ -8,10 +8,16 @@ const routes = [
     component: () => import("../views/HomeView.vue"),
   },
   {
-    path: "/props-emit",
-    name: "Props & Emit",
-    meta: { title: "Props & Emit" },
-    component: () => import("../views/Props/PropsEmitView.vue"),
+    path: "/props",
+    name: "Props",
+    meta: { title: "Props" },
+    component: () => import("../views/Props/PropsView.vue"),
+  },
+  {
+    path: "/emit",
+    name: "Emit",
+    meta: { title: "Emit" },
+    component: () => import("../views/Emit/EmitView.vue"),
   },
   {
     path: "/v-model",

@@ -15,10 +15,7 @@
 <script setup lang="ts">
 import ChildComponent from "./ChildComponent.vue";
 
-// 父组件只声明接收 'title' 这一个 prop
-defineProps({
-  title: String,
-});
+defineProps<{ title?: string }>();
 
 // Vue 3 推荐的做法，明确禁用属性继承，因为我们是手动 v-bind
 defineOptions({

@@ -1,11 +1,9 @@
 <template>
   <ComponentDemoLayout>
-    <!-- 1. 知识点介绍 -->
     <template #introduction>
       <MarkdownRenderer :source="introductionContent" />
     </template>
 
-    <!-- 2. 在线演示 -->
     <template #demo>
       <div class="parent-component">
         <h3>父组件</h3>
@@ -13,19 +11,14 @@
           <label>在父组件中修改消息:</label>
           <input v-model="parentMessage" />
         </div>
-        <p>
-          从子组件收到的消息: <span class="message">{{ childMessage }}</span>
-        </p>
-
-        <ChildComponent :message="parentMessage" @message-from-child="handleChildMessage" />
+        <ChildComponent :message="parentMessage" />
       </div>
     </template>
 
-    <!-- 3. 核心代码 -->
     <template #code>
       <div class="code-blocks">
         <div class="code-block">
-          <h4>父组件 (PropsEmitView.vue)</h4>
+          <h4>父组件 (PropsView.vue)</h4>
           <pre><code>{{ parentCode }}</code></pre>
         </div>
         <div class="code-block">
@@ -40,46 +33,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
-import ChildComponent from "@/components/props-emit-demo/ChildComponent.vue";
+import ChildComponent from "@/components/01-props-demo/ChildComponent.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
-import introductionContent from "@/markdown/01-props-emit.md?raw";
+import introductionContent from "@/markdown/01-props.md?raw";
+import parentCode from "@/views/Props/PropsView.vue?raw";
+import childCode from "@/components/01-props-demo/ChildComponent.vue?raw";
 
 const parentMessage = ref("来自父组件的初始消息");
-const childMessage = ref("暂未收到子组件消息");
-
-function handleChildMessage(payload: string) {
-  childMessage.value = payload || "子组件发送了空消息";
-}
-
-const parentCode = `
-// 父组件中
-const parentMessage = ref('...');
-
-function handleChildMessage(payload) {
-  childMessage.value = payload;
-}
-
-<ChildComponent 
-  :message="parentMessage" 
-  @message-from-child="handleChildMessage"
-/>
-`;
-
-const childCode = `
-// 子组件中
-defineProps({
-  message: {
-    type: String,
-    required: true
-  }
-});
-
-const emit = defineEmits(['message-from-child']);
-
-function sendMessage() {
-  emit('message-from-child', '...');
-}
-`;
 </script>
 
 <style scoped>
@@ -102,11 +62,6 @@ function sendMessage() {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.message {
-  color: #d9534f;
-  font-weight: bold;
 }
 
 .code-blocks {

@@ -38,51 +38,19 @@
       <section class="code-section">
         <h4>核心代码 (ParentComponent.vue)</h4>
         <pre><code>{{ parentCode }}</code></pre>
-      </section></template
-    >
+      </section></template>
   </ComponentDemoLayout>
 </template>
 
 <script setup lang="ts">
-import ParentComponent from "@/components/attrs-demo/ParentComponent.vue";
+import ParentComponent from "@/components/04-attrs-demo/ParentComponent.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/03-$attrs.md?raw";
-// --- Code Snippets for Display ---
-const parentCode = `
-<!-- ParentComponent.vue (中间层) -->
-<template>
-  <div class="parent-component">
-    <h3>父组件</h3>
-    <p>我只接收 'title' prop: {{ title }}</p>
-    
-    <!-- 关键点: 将所有未被 props 接收的属性
-         (message, user-id, is-active) 
-         继续向下传递给 ChildComponent -->
-    <ChildComponent v-bind="$attrs" />
-  </div>
-</template>
-
-<script setup>
-import ChildComponent from './ChildComponent.vue';
-
-// 父组件只声明接收 'title'
-defineProps({
-  title: String
-});
-
-// 推荐禁用默认的属性继承
-defineOptions({
-  inheritAttrs: false
-});
-<\/script>
-`;
+import parentCode from "@/components/04-attrs-demo/ParentComponent.vue?raw";
 </script>
 
 <style scoped>
-.attrs-view {
-  max-width: 900px;
-}
 section {
   margin-bottom: 30px;
   padding: 20px;

@@ -17,11 +17,12 @@
 <script setup lang="ts">
 import CustomInput from "./CustomInput.vue";
 
-// 接收 'firstName' 和 'lastName' 两个 prop
-defineProps(["firstName", "lastName"]);
+defineProps<{ firstName: string; lastName: string }>();
 
-// 声明 'update:firstName' 和 'update:lastName' 两个事件
-const emit = defineEmits(["update:firstName", "update:lastName"]);
+const emit = defineEmits<{
+  (e: "update:firstName", value: string): void;
+  (e: "update:lastName", value: string): void;
+}>();
 </script>
 
 <style scoped>

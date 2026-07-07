@@ -26,47 +26,15 @@
 </template>
 
 <script setup lang="ts">
-import LoginStatus from "@/components/pinia-demo/LoginStatus.vue";
-import LoginControls from "@/components/pinia-demo/LoginControls.vue";
+import LoginStatus from "@/components/07-pinia-demo/LoginStatus.vue";
+import LoginControls from "@/components/07-pinia-demo/LoginControls.vue";
 import ComponentDemoLayout from "@/components/ComponentDemoLayout.vue";
 import MarkdownRenderer from "@/components/MarkdownRenderer.vue";
 import introductionContent from "@/markdown/06-pinia.md?raw";
-const storeCode = `
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-
-export const useUserStore = defineStore('user', () => {
-  // State
-  const isLoggedIn = ref(false);
-  const userInfo = ref({ name: '', email: '' });
-
-  // Getters
-  const welcomeMessage = computed(() => {
-    return isLoggedIn.value 
-      ? \`欢迎回来, \${userInfo.value.name}!\` 
-      : '你好, 游客!';
-  });
-
-  // Actions
-  function login(name: string, email: string) {
-    isLoggedIn.value = true;
-    userInfo.value = { name, email };
-  }
-
-  function logout() {
-    isLoggedIn.value = false;
-    userInfo.value = { name: '', email: '' };
-  }
-
-  return { isLoggedIn, userInfo, welcomeMessage, login, logout };
-});
-`;
+import storeCode from "@/stores/userStore.ts?raw";
 </script>
 
 <style scoped>
-.pinia-view {
-  max-width: 900px;
-}
 section {
   margin-bottom: 30px;
   padding: 20px;

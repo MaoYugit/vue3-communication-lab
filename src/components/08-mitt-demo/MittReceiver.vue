@@ -16,10 +16,10 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import emitter from "@/utils/emitter";
 
-interface NotificationPayload {
+type NotificationPayload = {
   type: "success" | "warning" | "error";
   message: string;
-}
+};
 
 const notification = ref<NotificationPayload | null>(null);
 
@@ -27,20 +27,23 @@ const notification = ref<NotificationPayload | null>(null);
 function handleNotification(payload: NotificationPayload) {
   notification.value = payload;
   // 3秒后自动清除通知
-  setTimeout(() => {
+  timer = setTimeout(() => {
     notification.value = null;
   }, 3000);
 }
 
 // 2. 在组件挂载后，开始监听 'show-notification' 事件
 onMounted(() => {
-  emitter.on("show-notification", handleNotification as any);
+  emitter.on("show-notification", handleNotification);
 });
 
 // 3. ‼️‼️‼️ 最关键的一步：在组件卸载前，解绑事件监听器
 onUnmounted(() => {
-  emitter.off("show-notification", handleNotification as any);
+  emitter.off("show-notification", handleNotification);
+  clearTimeout(timer);
 });
+
+let timer: ReturnType<typeof setTimeout>;
 </script>
 
 <style scoped>
